@@ -1,4 +1,4 @@
-# money_tracker - track your expenses
+# money_tracker 
 
 ## Features:
 1. Responsive and Adaptive interface
