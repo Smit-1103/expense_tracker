@@ -1,16 +1,23 @@
-# expense_tracker
+# money_tracker - track your expenses
 
-A new Flutter project.
+## Features:
+1. Responsive and Adaptive interface
+2. Bar chart as per different categories for all the expenses,
+3. Built with Flutter for smooth performance and a polished look and feel with Dark mode.
+
 
 ## Getting Started
+1. Clone repository : `https://github.com/Smit-1103/expense_tracker.git`
+2. Go to repository : `cd expense_tracker`
+3. Install Dependencies : `flutter pub get`
+4. Select devices or emulators you want to run the app on.
+	- to run on device : `flutter run -d <device-id>`
+		> to list available devices :  `flutter devices`
 
-This project is a starting point for a Flutter application.
+## Check out the Application in action:
 
-A few resources to get you started if this is your first Flutter project:
+https://github.com/Smit-1103/expense_tracker/assets/112495701/70045c28-1dec-4e25-ae6b-56a43443742f
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://github.com/Smit-1103/expense_tracker/assets/112495701/51026c63-bc49-4931-917c-b1a962d37ce1
+
