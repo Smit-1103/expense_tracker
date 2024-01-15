@@ -5,6 +5,9 @@ import 'package:expense_tracker/widgets/expenses_list.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+
+import '../main.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -73,58 +76,126 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(actions: [
-        Tooltip(
-          message: 'Click here to add a new item',
-          child: IconButton(
-            icon: const Icon(
-              Icons.add,
-              size: 22,
-            ),
-            onPressed: _openAddExpensesOverlay,
+      appBar: AppBar(
+  leading: Consumer<ThemeProvider>(
+    builder: (context, themeProvider, child) {
+      return GestureDetector(
+        onTap: () {
+          themeProvider.toggleTheme();
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(
+            themeProvider.themeMode == ThemeMode.dark
+              ? Icons.light_mode
+              : Icons.dark_mode,
+            size: 22,
           ),
-        )
-      ], title: const Text("Expenses Tracker")),
-      body: Column(
-        children: [
-          Visibility(
-            visible: _registeredExpenses.isNotEmpty,
-            child: Chart(expenses: _registeredExpenses),
-          ),
-          _registeredExpenses.isEmpty
-              ? Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Lottie.asset(
-                        MyImages.addDataAnimation,
-                        width: 350,
-                        height: 350,
-                      ),
-                      const Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Please add some expenses!',
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: MyColors.hintTextColor,
-                            fontWeight: FontWeight.w400,
-                          ),
+        ),
+      );
+    },
+  ),
+  title: const Text(
+    "Expenses Tracker",
+  ),
+  centerTitle: true,
+  actions: [
+    Tooltip(
+      message: 'Click here to add a new item',
+      child: IconButton(
+        icon: const Icon(
+          Icons.add,
+          size: 25,
+        ),
+        onPressed: _openAddExpensesOverlay,
+      ),
+    )
+  ],
+),
+
+      body: width < 600
+          ? Column(
+              children: [
+                Visibility(
+                  visible: _registeredExpenses.isNotEmpty,
+                  child: Chart(expenses: _registeredExpenses),
+                ),
+                _registeredExpenses.isEmpty
+                    ? Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Lottie.asset(
+                              MyImages.addDataAnimation,
+                              width: 350,
+                              height: 350,
+                            ),
+                            const Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Please add some expenses!',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: MyColors.hintTextColor,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Expanded(
+                        child: ExpensesList(
+                          expenses: _registeredExpenses,
+                          onRemovedExpense: _removeExpense,
                         ),
                       ),
-                    ],
-                  ),
-                )
-              : Expanded(
-                  child: ExpensesList(
-                    expenses: _registeredExpenses,
-                    onRemovedExpense: _removeExpense,
+              ],
+            )
+          : Row(
+              children: [
+                Visibility(
+                  visible: _registeredExpenses.isNotEmpty,
+                  child: Expanded(
+                    child: Chart(expenses: _registeredExpenses),
                   ),
                 ),
-        ],
-      ),
+                _registeredExpenses.isEmpty
+                    ? Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Lottie.asset(
+                              MyImages.addDataAnimation,
+                              width: 350,
+                              height: 350,
+                            ),
+                            const Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Please add some expenses!',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: MyColors.hintTextColor,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Expanded(
+                        child: ExpensesList(
+                          expenses: _registeredExpenses,
+                          onRemovedExpense: _removeExpense,
+                        ),
+                      ),
+              ],
+            ),
     );
   }
 }

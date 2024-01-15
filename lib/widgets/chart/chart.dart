@@ -4,7 +4,7 @@ import 'package:expense_tracker/widgets/chart/chart_bar.dart';
 import 'package:expense_tracker/models/expense.dart';
 
 class Chart extends StatelessWidget {
-  const Chart({super.key, required this.expenses});
+  const Chart({Key? key, required this.expenses}) : super(key: key);
 
   final List<Expense> expenses;
 
@@ -31,8 +31,8 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.symmetric(
@@ -43,11 +43,9 @@ class Chart extends StatelessWidget {
       height: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        // color:  Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-
         color: isDarkMode
             ? Colors.lightBlueAccent.shade100.withOpacity(0.3)
-            : Color.fromARGB(255, 233, 183, 180).withOpacity(0.7),
+            : const Color.fromARGB(255, 233, 183, 180).withOpacity(0.7),
       ),
       child: Column(
         children: [
@@ -55,12 +53,12 @@ class Chart extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                for (final bucket in buckets) // alternative to map()
+                for (final bucket in buckets)
                   ChartBar(
                     fill: bucket.totalExpenses == 0
                         ? 0
                         : bucket.totalExpenses / maxTotalExpense,
-                  )
+                  ),
               ],
             ),
           ),
@@ -73,15 +71,13 @@ class Chart extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Icon(
                         categoryIcons[bucket.category],
-                        color: isDarkMode
-                            ? Color.fromARGB(255, 189, 190, 192)
-                            : Color.fromARGB(255, 62, 62, 63),
+                        color: Theme.of(context).iconTheme.color,
                       ),
                     ),
                   ),
                 )
                 .toList(),
-          )
+          ),
         ],
       ),
     );

@@ -176,30 +176,33 @@ class _NewExpenseState extends State<NewExpense> {
                 width: 10,
               ),
               Expanded(
-                child: OutlinedButton.icon(
-                  onPressed: _presentDatePicker,
-                  icon: const Icon(
-                    Icons.calendar_month,
-                  ),
-                  label: Text(
-                    _selectedDate == null
-                        ? 'Select Date'
-                        : formatter.format(_selectedDate!),
-                  ),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(80.0),
-                    ),
-                  ),
-                ),
-              ),
+  child: OutlinedButton.icon(
+    onPressed: _presentDatePicker,
+    icon: const Icon(
+      Icons.calendar_month,
+    ),
+    label: Text(
+      _selectedDate == null
+          ? 'Select Date'
+          : formatter.format(_selectedDate!),
+    ),
+    style: OutlinedButton.styleFrom(
+      padding: const EdgeInsets.all(12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(80.0),
+      ),
+      backgroundColor: Colors.transparent, // Set background color to transparent
+      foregroundColor: const Color.fromARGB(255, 4, 79, 141), // Set the text color to blue
+    ),
+  ),
+),
+
             ],
           ),
           const SizedBox(
             height: 20,
           ),
-         DropdownButtonFormField<Category>(
+          DropdownButtonFormField<Category>(
             value: _selectedCategory,
             items: Category.values
                 .map((category) => DropdownMenuItem(
@@ -212,7 +215,6 @@ class _NewExpenseState extends State<NewExpense> {
                               width: 10), // Add spacing between icon and text
                           Text(
                             category.name.toString(),
-                            
                           ),
                         ],
                       ),
