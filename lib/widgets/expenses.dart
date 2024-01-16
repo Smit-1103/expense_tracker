@@ -1,3 +1,4 @@
+// Import necessary packages and files
 import 'package:expense_tracker/constants.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widgets/chart/chart.dart';
@@ -6,6 +7,7 @@ import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 
@@ -19,39 +21,41 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  final List<Expense> _registeredExpenses = [
-    Expense(
-      amount: 19.99,
-      date: DateTime.now(),
-      title: "Flight ticket",
-      category: Category.travel,
-    ),
-    Expense(
-      amount: 29,
-      date: DateTime.now(),
-      title: "Restaurant",
-      category: Category.food,
-    ),
-  ];
+  List<Expense> _registeredExpenses = [];
+
+  // Load expenses from SharedPreferences when the widget initializes
+  @override
+  void initState() {
+    super.initState();
+    _loadExpenses();
+  }
+
+  void _loadExpenses() async {
+    _registeredExpenses = await Expense.loadExpenses();
+    setState(() {});
+  }
 
   void _openAddExpensesOverlay() {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
       builder: (ctx) => FractionallySizedBox(
-        heightFactor: 4 / 5, // Adjust the fraction as needed
+        heightFactor: 4 / 5,
         child: NewExpense(onAddExpense: _addExpense),
       ),
     );
   }
 
-  void _addExpense(Expense expense) {
+  void _addExpense(Expense expense) async {
     setState(() {
       _registeredExpenses.add(expense);
     });
+
+    // Save the updated expenses list to SharedPreferences
+    await Expense.saveExpenses(_registeredExpenses);
   }
 
-  void _removeExpense(Expense expense) {
+  void _removeExpense(Expense expense) async {
     final expenseIndex = _registeredExpenses.indexOf(expense);
     setState(() {
       _registeredExpenses.remove(expense);
@@ -64,57 +68,63 @@ class _ExpensesState extends State<Expenses> {
         content: const Text('Expense deleted.'),
         action: SnackBarAction(
           label: 'Undo',
-          onPressed: () {
+          onPressed: () async {
             setState(() {
               _registeredExpenses.insert(expenseIndex, expense);
             });
+
+            // Save the updated expenses list to SharedPreferences
+            await Expense.saveExpenses(_registeredExpenses);
           },
         ),
       ),
     );
+
+    // Save the updated expenses list to SharedPreferences
+    await Expense.saveExpenses(_registeredExpenses);
   }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
-  leading: Consumer<ThemeProvider>(
-    builder: (context, themeProvider, child) {
-      return GestureDetector(
-        onTap: () {
-          themeProvider.toggleTheme();
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(
-            themeProvider.themeMode == ThemeMode.dark
-              ? Icons.light_mode
-              : Icons.dark_mode,
-            size: 22,
-          ),
+        leading: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
+            return GestureDetector(
+              onTap: () {
+                themeProvider.toggleTheme();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  themeProvider.themeMode == ThemeMode.dark
+                      ? Icons.light_mode
+                      : Icons.dark_mode,
+                  size: 22,
+                ),
+              ),
+            );
+          },
         ),
-      );
-    },
-  ),
-  title: const Text(
-    "Expenses Tracker",
-  ),
-  centerTitle: true,
-  actions: [
-    Tooltip(
-      message: 'Click here to add a new item',
-      child: IconButton(
-        icon: const Icon(
-          Icons.add,
-          size: 25,
+        title: const Text(
+          "Expenses Tracker",
         ),
-        onPressed: _openAddExpensesOverlay,
+        centerTitle: true,
+        actions: [
+          Tooltip(
+            message: 'Click here to add a new item',
+            child: IconButton(
+              icon: const Icon(
+                Icons.add,
+                size: 25,
+              ),
+              onPressed: _openAddExpensesOverlay,
+            ),
+          )
+        ],
       ),
-    )
-  ],
-),
-
       body: width < 600
           ? Column(
               children: [

@@ -1,4 +1,3 @@
-
 import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
 
@@ -26,13 +25,12 @@ class ExpenseItem extends StatelessWidget {
         subtitle: Row(
           children: [
             Icon(
-  categoryIcons[expense.category],
-  color: Theme.of(context).brightness == Brightness.dark
-      ? const Color.fromARGB(255, 96, 145, 235)
-      : const Color.fromARGB(255, 30, 71, 138),
-  size: 20,
-),
-
+              categoryIcons[expense.category],
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? const Color.fromARGB(255, 96, 145, 235)
+                  : const Color.fromARGB(255, 30, 71, 138),
+              size: 20,
+            ),
             const SizedBox(width: 8),
             Text(expense.formattedDate),
           ],
