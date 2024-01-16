@@ -23,9 +23,9 @@ https://github.com/Smit-1103/expense_tracker/assets/112495701/51026c63-bc49-4931
 
 ## FUTURE DEVELOPMENTS
 
-[x] save the list in device memory
+[X] save the list in device memory
 [] delete all feature
-[x] dark mode and light mode button
+[X] dark mode and light mode button
 [] smooth animation when click on the PLUS icon
 [] smart tool tip to PLUS icon
 [] filters in chart
