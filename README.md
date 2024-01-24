@@ -21,15 +21,10 @@ https://github.com/Smit-1103/expense_tracker/assets/112495701/70045c28-1dec-4e25
 
 https://github.com/Smit-1103/expense_tracker/assets/112495701/51026c63-bc49-4931-917c-b1a962d37ce1
 
-## FUTURE DEVELOPMENTS
+## FUTURE DEVELOPMENTS ONE CAN DO
 
 [x] save the list in device memory
 [] delete all feature
 [x] dark mode and light mode button
-[] smooth animation when click on the PLUS icon
 [] smart tool tip to PLUS icon
-[] filters in chart
-[] icon change
-[] liottiefiles if possible
-[] history list of expenses
 [] monthly,weekly and daily expense record filters
