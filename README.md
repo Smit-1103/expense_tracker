@@ -23,8 +23,8 @@ https://github.com/Smit-1103/expense_tracker/assets/112495701/51026c63-bc49-4931
 
 ## FUTURE DEVELOPMENTS ONE CAN DO
 
-[x] save the list in device memory
-[] delete all feature
-[x] dark mode and light mode button
-[] smart tool tip to PLUS icon
-[] monthly,weekly and daily expense record filters
+- [x] save the list in device memory
+- [ ] delete all feature
+- [x] dark mode and light mode button
+- [ ] smart tool tip to PLUS icon
+- [ ] monthly,weekly and daily expense record filters
