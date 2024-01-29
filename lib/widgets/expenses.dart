@@ -142,6 +142,7 @@ class _ExpensesState extends State<Expenses> {
                               MyImages.addDataAnimation,
                               width: 350,
                               height: 350,
+                              repeat: false,
                             ),
                             const Align(
                               alignment: Alignment.center,
