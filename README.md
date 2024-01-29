@@ -17,14 +17,12 @@
 
 ## Check out the Application in action:
 
-https://github.com/Smit-1103/expense_tracker/assets/112495701/70045c28-1dec-4e25-ae6b-56a43443742f
-
-https://github.com/Smit-1103/expense_tracker/assets/112495701/51026c63-bc49-4931-917c-b1a962d37ce1
+https://github.com/Smit-1103/expense_tracker/assets/112495701/1b35f618-31c9-4b23-8865-f5c8a49794b7
 
 ## FUTURE DEVELOPMENTS ONE CAN DO
 
 - [x] save the list in device memory
-- [ ] delete all feature
 - [x] dark mode and light mode button
+- [ ] delete all feature
 - [ ] smart tool tip to PLUS icon
 - [ ] monthly,weekly and daily expense record filters
